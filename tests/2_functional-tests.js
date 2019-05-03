@@ -29,6 +29,16 @@ suite('Functional Tests', function() {
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
+          assert.isArray(res.body);
+          assert.equal(res.body.issue_title, 'Title');
+          assert.equal(res.body.issue_text, 'text');
+//          assert.equal(res.body.created_on, ');
+//          assert.equal(res.body.updated_on');
+          assert.equal(res.body.created_by, 'Functional Test - Every field filled in');
+          assert.equal(res.body.assigned_to, 'Chai and Mocha');
+          assert.equal(res.body.open, true);
+          assert.equal(res.body.status_text, 'In QA');
+         
           
           //fill me in too!
           
