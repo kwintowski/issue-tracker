@@ -4,6 +4,18 @@ var ObjectId = require('mongodb').ObjectID;
 
 function FormHandler(app, db) {
 
+  this.getIssues = function(project, searchFields) {
+    
+    console.log(searchFields);
+    
+    return new Promise(function(resolve, reject){  
+      db.collection(project).find(searchFields).toArray((err, doc) => {
+        if(err) reject(err);
+        resolve(doc);
+      }
+    )});
+  }
+  
   this.newIssue = function(project, Issue) {
     
     return new Promise(function(resolve, reject){    
