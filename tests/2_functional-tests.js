@@ -77,13 +77,11 @@ suite('Functional Tests', function() {
         chai.request(server)
         .put('/api/issues/test')
         .send({
-          //insert proper ID here
-          _id: '5ccc4f25ed481519d30d4244',
-          issue_title: 'Title'
+          _id: '5ccc4f25ed481519d30d4244'
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
-          assert.notExists(res.body[0].issue_text);
+          assert.equal(res.body,'no updated field sent');
           done();
         });
       });
@@ -93,12 +91,12 @@ suite('Functional Tests', function() {
         .put('/api/issues/test')
         .send({
           //insert proper ID here
-          _id: '5ccc4f25ed481519d30d4244',
+          _id: '5cce7ec8ec2bac2982f2dc45',
           issue_title: 'Title'
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
-          assert.lengthOf(res.body[0].keys().length, 2); //_id and 1 more field
+          assert.equal(res.body, 'successfully updated'); 
           done();
         });        
       });
@@ -108,14 +106,13 @@ suite('Functional Tests', function() {
         .put('/api/issues/test')
         .send({
           //insert proper ID here
-          _id: '5ccc4f25ed481519d30d4244',
+          _id: '5cce7ec8ec2bac2982f2dc45',
           issue_title: 'Title',
           issue_text: 'Text test'
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
-          console.log('Keys: '+res.body[0].keys());
-          assert.isAtLeast(res.body[0].keys().length, 2); //_id and 1 more field
+          assert.equal(res.body, 'successfully updated'); 
           done();
         });        
       });

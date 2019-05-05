@@ -60,18 +60,18 @@ module.exports = function (app,db) {
       var Issue = {};
     
       if(req.body._id) {
-        req.body.issue_title==""?null:Issue.issue_title=req.body.issue_title;
-        req.body.issue_text==""?null:Issue.issue_text=req.body.issue_text;
-        req.body.created_by==""?null:Issue.created_by=req.body.created_by;
-        req.body.assigned_to==""?null:Issue.assigned_to=req.body.assigned_to;
-        req.body.status_text==""?null:Issue.status_text=req.body.status_text;
+        req.body.issue_title==''?null:(req.body.issue_title==null?null:Issue.issue_title=req.body.issue_title);
+        req.body.issue_text==''?null:(req.body.issue_text==null?null:Issue.issue_text=req.body.issue_text);
+        req.body.created_by==''?null:(req.body.created_by==null?null:Issue.created_by=req.body.created_by);
+        req.body.assigned_to==''?null:(req.body.assigned_to==null?null:Issue.assigned_to=req.body.assigned_to);
+        req.body.status_text==''?null:(req.body.status_text==null?null:Issue.status_text=req.body.status_text);
         req.body.open?Issue.open=false:null;
-        Issue.updated_on=(new Date()).toISOString();
       }
     
       console.log(Issue);
     
       if(Object.keys(Issue).length>0) {
+        Issue.updated_on=(new Date()).toISOString();
         formHandler.updateIssue(project, req.body._id, Issue)
           .then((result)=>{res.json(result);})
           .catch((reject)=>{res.json(reject);}); 
